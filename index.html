@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta
+        name="description"
+        content="ULUG'BEK.R Multiplayer Quvlashmachoq"
+    >
+
+    <title>Quvlashmachoq — ULUG'BEK.R</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     MAIN MENU
+===================================================== -->
+
+<div id="mainMenu" class="screen">
+
+    <div class="menu-container">
+
+        <div class="game-logo">
+            <div class="logo-icon">🏃</div>
+
+            <h1>
+                QUVLASH<span>MACHOQ</span>
+            </h1>
+
+            <p class="producer">
+                ULUG'BEK.R
+            </p>
+
+            <p class="subtitle">
+                ONLINE MULTIPLAYER
+            </p>
+        </div>
+
+
+        <!-- PLAYER NAME -->
+
+        <div class="input-box">
+
+            <label for="playerName">
+                👤 O'yinchi ismi
+            </label>
+
+            <input
+                type="text"
+                id="playerName"
+                maxlength="16"
+                placeholder="Ismingizni yozing..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <!-- ROOM -->
+
+        <div class="room-section">
+
+            <button
+                id="createRoomBtn"
+                class="main-btn create-btn"
+            >
+                🏠 ROOM YARATISH
+            </button>
+
+
+            <div class="or">
+                YOKI
+            </div>
+
+
+            <div class="join-row">
+
+                <input
+                    type="text"
+                    id="roomCodeInput"
+                    maxlength="6"
+                    placeholder="ROOM KODI"
+                    autocomplete="off"
+                >
+
+                <button
+                    id="joinRoomBtn"
+                    class="main-btn join-btn"
+                >
+                    🔗 KIRISH
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <div class="menu-buttons">
+
+            <button
+                id="shopBtn"
+                class="menu-btn"
+            >
+                🛍️ MAGAZIN
+            </button>
+
+            <button
+                id="statsBtn"
+                class="menu-btn"
+            >
+                🏆 STATISTIKA
+            </button>
+
+            <button
+                id="settingsBtn"
+                class="menu-btn"
+            >
+                ⚙️ SOZLAMALAR
+            </button>
+
+        </div>
+
+
+        <div class="connection-status">
+
+            <span id="connectionDot"></span>
+
+            <span id="connectionText">
+                Serverga ulanmagan
+            </span>
+
+        </div>
+
+
+        <div class="copyright">
+            © ULUG'BEK.R — Multiplayer Game
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ROOM LOBBY
+===================================================== -->
+
+<div
+    id="roomLobby"
+    class="screen hidden"
+>
+
+    <div class="lobby-container">
+
+        <div class="lobby-header">
+
+            <div>
+                <span class="small-title">
+                    ROOM
+                </span>
+
+                <h2 id="roomCodeDisplay">
+                    ------
+                </h2>
+            </div>
+
+            <button
+                id="copyRoomBtn"
+                class="icon-btn"
+                title="Koddan nusxa olish"
+            >
+                📋
+            </button>
+
+        </div>
+
+
+        <div class="lobby-info">
+
+            <span>
+                👥 O'yinchilar:
+            </span>
+
+            <strong id="playerCount">
+                1/10
+            </strong>
+
+        </div>
+
+
+        <!-- PLAYERS -->
+
+        <div
+            id="playersList"
+            class="players-list"
+        >
+
+            <!-- JavaScript playerlarni shu yerga qo'shadi -->
+
+        </div>
+
+
+        <div class="waiting-text">
+
+            ⏳ O'yinchilar kutilmoqda...
+
+            <br>
+
+            <small>
+                Kamida 2 ta o'yinchi kerak
+            </small>
+
+        </div>
+
+
+        <button
+            id="startGameBtn"
+            class="main-btn start-game-btn"
+            disabled
+        >
+            ▶️ O'YINNI BOSHLASH
+        </button>
+
+
+        <button
+            id="leaveRoomBtn"
+            class="secondary-btn"
+        >
+            🚪 ROOMDAN CHIQISH
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SHOP
+===================================================== -->
+
+<div
+    id="shopScreen"
+    class="screen hidden"
+>
+
+    <div class="shop-container">
+
+        <div class="page-header">
+
+            <button
+                id="closeShopBtn"
+                class="back-btn"
+            >
+                ←
+            </button>
+
+            <div>
+                <h2>🛍️ MAGAZIN</h2>
+
+                <p>
+                    Kiyimlar, skinlar va gadjetlar
+                </p>
+            </div>
+
+            <div class="coins-display">
+                🪙
+                <span id="shopCoins">
+                    0
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- SHOP TABS -->
+
+        <div class="shop-tabs">
+
+            <button
+                class="shop-tab active"
+                data-category="skins"
+            >
+                👕 SKIN
+            </button>
+
+            <button
+                class="shop-tab"
+                data-category="gadgets"
+            >
+                🎒 GADJET
+            </button>
+
+            <button
+                class="shop-tab"
+                data-category="clothes"
+            >
+                🧥 KIYIM
+            </button>
+
+        </div>
+
+
+        <!-- SHOP ITEMS -->
+
+        <div
+            id="shopItems"
+            class="shop-items"
+        >
+
+            <!-- JavaScript orqali to'ldiriladi -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<div
+    id="statsScreen"
+    class="screen hidden"
+>
+
+    <div class="stats-container">
+
+        <div class="page-header">
+
+            <button
+                id="closeStatsBtn"
+                class="back-btn"
+            >
+                ←
+            </button>
+
+            <div>
+                <h2>🏆 STATISTIKA</h2>
+
+                <p>
+                    Sizning natijalaringiz
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stats-player">
+
+            <div class="avatar">
+                👤
+            </div>
+
+            <div>
+
+                <strong id="statsPlayerName">
+                    O'yinchi
+                </strong>
+
+                <small>
+                    ULUG'BEK.R Player
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>🎮</span>
+                <small>O'yinlar</small>
+                <strong id="gamesPlayed">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>🏆</span>
+                <small>G'alabalar</small>
+                <strong id="wins">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>✋</span>
+                <small>Ushlanganlar</small>
+                <strong id="caughtPlayers">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>🏃</span>
+                <small>Qochishlar</small>
+                <strong id="escapes">0</strong>
+            </div>
+
+        </div>
+
+
+        <button
+            id="resetStatsBtn"
+            class="danger-btn"
+        >
+            🗑️ Statistikani tozalash
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     GAME SCREEN
+===================================================== -->
+
+<div
+    id="gameScreen"
+    class="game-screen hidden"
+>
+
+    <!-- HUD -->
+
+    <div class="game-hud">
+
+        <div class="hud-left">
+
+            <div class="hud-player">
+
+                <span id="gamePlayerIcon">
+                    👤
+                </span>
+
+                <div>
+
+                    <small>
+                        O'YINCHI
+                    </small>
+
+                    <strong id="gamePlayerName">
+                        O'yinchi
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="roleBadge"
+                class="role-badge runner"
+            >
+                🏃 QOCHUVCHI
+            </div>
+
+        </div>
+
+
+        <div class="hud-center">
+
+            <div class="round-label">
+                ROUND
+            </div>
+
+            <div
+                id="gameTimer"
+                class="game-timer"
+            >
+                03:00
+            </div>
+
+        </div>
+
+
+        <div class="hud-right">
+
+            <div class="hud-players">
+                👥
+                <span id="gamePlayerCount">
+                    0/10
+                </span>
+            </div>
+
+            <button
+                id="pauseBtn"
+                class="pause-btn"
+            >
+                ⏸️
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME CANVAS -->
+
+    <canvas
+        id="gameCanvas"
+        width="1200"
+        height="700"
+    ></canvas>
+
+
+    <!-- ROOM CODE -->
+
+    <div class="game-room-code">
+
+        ROOM:
+
+        <strong id="gameRoomCode">
+            ------
+        </strong>
+
+    </div>
+
+
+    <!-- GAME MESSAGE -->
+
+    <div
+        id="gameMessage"
+        class="game-message"
+    >
+        🏃 Qoching!
+    </div>
+
+
+    <!-- MOBILE CONTROLS -->
+
+    <div
+        id="mobileControls"
+        class="mobile-controls"
+    >
+
+        <div class="joystick-area">
+
+            <div
+                id="joystickBase"
+                class="joystick-base"
+            >
+
+                <div
+                    id="joystickStick"
+                    class="joystick-stick"
+                >
+                    ●
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="action-buttons">
+
+            <button
+                id="jumpBtn"
+                class="action-btn jump-btn"
+            >
+                🦘
+                <small>
+                    SAKRASH
+                </small>
+            </button>
+
+            <button
+                id="runBtn"
+                class="action-btn run-btn"
+            >
+                ⚡
+                <small>
+                    TEZLIK
+                </small>
+            </button>
+
+            <button
+                id="hideBtn"
+                class="action-btn hide-btn"
+            >
+                🫥
+                <small>
+                    BERKINISH
+                </small>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME PAUSE -->
+
+    <div
+        id="pauseOverlay"
+        class="overlay hidden"
+    >
+
+        <div class="pause-container">
+
+            <div class="pause-icon">
+                ⏸️
+            </div>
+
+            <h2>
+                PAUSE
+            </h2>
+
+            <p>
+                O'yin vaqtincha to'xtatildi
+            </p>
+
+
+            <button
+                id="resumeBtn"
+                class="main-btn"
+            >
+                ▶️ DAVOM ETISH
+            </button>
+
+
+            <button
+                id="pauseShopBtn"
+                class="menu-btn"
+            >
+                🛍️ MAGAZIN
+            </button>
+
+
+            <button
+                id="pauseExitBtn"
+                class="secondary-btn"
+            >
+                🚪 O'YINDAN CHIQISH
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ROUND RESULT -->
+
+    <div
+        id="roundResult"
+        class="overlay hidden"
+    >
+
+        <div class="result-container">
+
+            <div
+                id="resultIcon"
+                class="result-icon"
+            >
+                🏆
+            </div>
+
+            <h2 id="resultTitle">
+                ROUND YAKUNLANDI
+            </h2>
+
+            <p id="resultText">
+                Natijalar
+            </p>
+
+
+            <div class="result-stats">
+
+                <div>
+                    <small>
+                        🏃 Vaqt
+                    </small>
+
+                    <strong id="resultTime">
+                        00:00
+                    </strong>
+                </div>
+
+                <div>
+                    <small>
+                        🪙 Coin
+                    </small>
+
+                    <strong id="resultCoins">
+                        +0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <button
+                id="nextRoundBtn"
+                class="main-btn"
+            >
+                ▶️ KEYINGI ROUND
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTIFICATION
+===================================================== -->
+
+<div
+    id="notification"
+    class="notification hidden"
+>
+    <span id="notificationIcon">
+        ℹ️
+    </span>
+
+    <span id="notificationText">
+        Xabar
+    </span>
+</div>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+    id="loadingScreen"
+    class="loading-screen hidden"
+>
+
+    <div class="loading-box">
+
+        <div class="loading-icon">
+            🏃
+        </div>
+
+        <h2>
+            Ulanmoqda...
+        </h2>
+
+        <div class="loading-bar">
+
+            <div
+                id="loadingProgress"
+                class="loading-progress"
+            ></div>
+
+        </div>
+
+        <p id="loadingText">
+            Server bilan aloqa o'rnatilmoqda
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>

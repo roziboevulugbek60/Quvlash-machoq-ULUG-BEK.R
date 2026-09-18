@@ -1,0 +1,24 @@
+
+{
+  "name": "quvlashmachoq",
+  "version": "1.0.0",
+  "description": "ULUG'BEK.R — Multiplayer Quvlashmachoq o'yini",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "game",
+    "multiplayer",
+    "quvlashmachoq",
+    "socket.io"
+  ],
+  "author": "ULUG'BEK.R",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
+
